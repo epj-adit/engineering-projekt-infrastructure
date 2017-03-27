@@ -1,0 +1,9 @@
+[Unit]
+Description=Renew adit let's encrypt certificates with dehydrated
+Requires=nginx.service
+OnFailure=status-email-root@%n.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/docker exec -i nginx dehydrated --cron
+ExecStartPost=/usr/bin/docker restart nginx
