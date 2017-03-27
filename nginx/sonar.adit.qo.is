@@ -6,6 +6,10 @@ server {
     listen 8080;
     server_name sonar.adit.qo.is;
 
+    location /.well-known/acme-challenge {
+      alias /var/www/dehydrated;
+    }
+
     rewrite ^/(.*) https://sonar.adit.qo.is/$1 permanent;
 }
 
@@ -39,6 +43,10 @@ server {
 
     # support up to ~20MB uploads
     client_max_body_size 20M;
+
+    location /.well-known/acme-challenge {
+      alias /var/www/dehydrated;
+    }
 
     location / {
         if (-f $document_root/maintenance.html) {

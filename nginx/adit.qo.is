@@ -6,6 +6,10 @@ server {
     listen 8080;
     server_name www.adit.qo.is adit.qo.is;
 
+    location /.well-known/acme-challenge {
+      alias /var/www/dehydrated;
+    }
+
     rewrite ^/(.*) https://adit.qo.is/$1 permanent;
 }
 
@@ -14,6 +18,10 @@ server {
     server_name www.adit.qo.is;
     ssl_certificate /etc/dehydrated/certs/adit.qo.is/fullchain.pem;
     ssl_certificate_key /etc/dehydrated/certs/adit.qo.is/privkey.pem;
+
+    location /.well-known/acme-challenge {
+      alias /var/www/dehydrated;
+    }
 
     rewrite ^/(.*) https://adit.qo.is/$1 permanent;
 }
@@ -50,6 +58,9 @@ server {
     # path for static files
     root /var/www/;
 
+    location /.well-known/acme-challenge {
+      alias /var/www/dehydrated;
+    }
 
     location / {
         if (-f $document_root/maintenance.html) {
