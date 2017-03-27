@@ -1,16 +1,16 @@
 [Unit]
-Description=engineering-projekt-client
+Description=engineering-projekt-server
 After=docker.service
-After=engineering-projekt-client-postgres.service
+After=engineering-projekt-server-postgres.service
 Before=nginx.service
 Requires=docker.service
-Requires=engineering-projekt-client-postgres.service
+Requires=engineering-projekt-server-postgres.service
 
 [Service]
 TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker kill engineering-projekt-client
-ExecStart=/usr/bin/docker run --name engineering-projekt-client --link postgres --link nginx --env-file /etc/engineering-projekt-client.env engineering-projekt-client/engineering-projekt-client
-ExecStop=/usr/bin/docker stop engineering-projekt-client
+ExecStartPre=-/usr/bin/docker kill engineering-projekt-server
+ExecStart=/usr/bin/docker run --rm --name engineering-projekt-server --link postgres --link nginx --env-file /etc/engineering-projekt-server.env engineering-projekt-server/engineering-projekt-server
+ExecStop=/usr/bin/docker stop engineering-projekt-server
 
 [Install]
 WantedBy=multi-user.target
