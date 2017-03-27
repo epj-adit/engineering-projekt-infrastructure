@@ -3,7 +3,7 @@
 
 ```bash
 docker pull nginx
-systemctl link service/nginx.service
+systemctl link `pwd`/services/nginx.service
 ```
 
 ## TODO: Cron update?
@@ -12,7 +12,7 @@ systemctl link service/nginx.service
 
 ```bash
 docker pull fabianhauser/engineering-projekt-client
-systemctl link service/engineering-projekt-client.service
+systemctl link `pwd`/services/engineering-projekt-client.service
 ```
 
 ## TODO: Rollator
