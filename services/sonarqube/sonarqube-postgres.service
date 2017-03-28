@@ -8,6 +8,8 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill sonarqube-postgres
 ExecStart=/usr/bin/docker run --rm --name sonarqube-postgres --env-file /etc/sonarqube.env -v sonarqube_postgresql:/var/lib/postgresql -v sonarqube_postgresql_data:/var/lib/postgresql/data postgres:9.6-alpine
 ExecStop=/usr/bin/docker stop sonarqube-postgres
+Restart=on-failure
+RestartSec=1
 
 [Install]
 WantedBy=multi-user.target
