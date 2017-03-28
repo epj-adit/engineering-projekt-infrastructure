@@ -1,9 +1,9 @@
 [Unit]
 Description=sonarqube
 After=docker.service
-Before=nginx.service
-Before=sonarqube-postgres.service
 Requires=docker.service
+
+After=sonarqube-postgres.service
 Requires=sonarqube-postgres.service
 
 [Service]

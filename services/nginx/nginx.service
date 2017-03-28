@@ -1,17 +1,26 @@
 [Unit]
 Description=nginx
 After=docker.service
-After=engineering-projekt-client.service
-#After=engineering-projekt-server.service
-After=sonarqube.service
 Requires=docker.service
+
+After=engineering-projekt-client.service
+Requires=engineering-projekt-client.service
+
+After=engineering-projekt-client-develop.service
+Requires=engineering-projekt-client-develop.service
+
+After=sonarqube.service
+Requires=sonarqube.service
+
+#After=engineering-projekt-server.service
+#Requires=engineering-projekt-server.service
 
 [Service]
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill nginx
 ExecReload=/usr/bin/docker kill -s HUP nginx
 # TODO: Link engineering-projekt-server
-ExecStart=/usr/bin/docker run --rm --name nginx --link engineering-projekt-client  --link sonarqube --volume /opt/engineering-projekt-infrastructure/dehydrated:/etc/dehydrated --volume /opt/engineering-projekt-infrastructure/nginx:/etc/nginx/sites:ro --publish 80:8080 --publish 443:8443 fabianhauser/nginx-dehydrated
+ExecStart=/usr/bin/docker run --rm --name nginx --link engineering-projekt-client  --link engineering-projekt-client-develop --link sonarqube --volume /opt/engineering-projekt-infrastructure/dehydrated:/etc/dehydrated --volume /opt/engineering-projekt-infrastructure/nginx:/etc/nginx/sites:ro --publish 80:8080 --publish 443:8443 fabianhauser/nginx-dehydrated
 ExecStop=/usr/bin/docker stop nginx
 
 [Install]

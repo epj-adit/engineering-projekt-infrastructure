@@ -5,3 +5,6 @@ Description=Rollator daemon for engineering-projekt-client service.
 TimeoutStartSec=0
 Environment="CONTAINER=fabianhauser/engineering-projekt-client:latest" "SERVICE=engineering-projekt-client"
 ExecStart=/opt/rollator/rollator.bash /var/lib/rollator/${SERVICE}/restart /var/lib/rollator/${SERVICE}.lockfile ${CONTAINER} ${SERVICE}.service
+
+[Install]
+WantedBy=multi-user.target

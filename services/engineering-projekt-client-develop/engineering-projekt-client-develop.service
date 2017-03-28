@@ -1,7 +1,6 @@
 [Unit]
 Description=engineering-projekt-client-develop
 After=docker.service
-Before=nginx.service
 Requires=docker.service
 
 [Service]
