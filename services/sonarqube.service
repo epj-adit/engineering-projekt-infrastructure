@@ -1,0 +1,17 @@
+[Unit]
+Description=sonarqube
+After=docker.service
+Before=nginx.service
+Before=sonarqube-postgres.service
+Requires=docker.service
+Requires=sonarqube-postgres.service
+
+[Service]
+TimeoutStartSec=0
+EnvironmentFile=/etc/sonarqube.env
+ExecStartPre=-/usr/bin/docker kill sonarqube
+ExecStart=/usr/bin/docker run --rm --name sonarqube  --env-file /etc/sonarqube.env -e "SONARQUBE_WEB_JVM_OPTS=-Xmx512m -Xms128m -XX:+HeapDumpOnOutOfMemoryError -Des.network.host=127.0.0.1" -v sonarqube_conf:/opt/sonarqube/conf -v sonarqube_data:/opt/sonarqube/data --link sonarqube-postgres fabianhauser/sonarqube-angular
+ExecStop=/usr/bin/docker stop sonarqube
+
+[Install]
+WantedBy=multi-user.target
