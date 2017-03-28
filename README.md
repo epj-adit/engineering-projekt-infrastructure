@@ -32,7 +32,9 @@ systemctl start nginx-dehydrated.service
 
 ## TODO: Rollator
 
-TODO
+```bash
+systemctl link `pwd`/rollator/engineering-projekt-client-rollator.service
+```
 
 ## Installation engineering-projekt-server
 

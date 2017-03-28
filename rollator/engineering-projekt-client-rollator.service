@@ -1,0 +1,8 @@
+[Unit]
+Description=Rollator daemon for nginx service.
+
+[Service]
+TimeoutStartSec=0
+Environment="CONTAINER=fabianhauser/engineering-projekt-client:latest" "SERVICE=engineering-projekt-client"
+ExecStartPre=/usr/bin/touch /var/lib/rollator/${SERVICE}.lockfile
+ExecStart=/opt/rollator/rollator.bash /var/lib/rollator/${SERVICE}/restart /var/lib/rollator/${SERVICE}.lockfile ${CONTAINER} ${SERVICE}.service
