@@ -1,5 +1,5 @@
 [Unit]
-Description=Rollator daemon for nginx service.
+Description=Rollator daemon for engineering-projekt-client service.
 
 [Service]
 TimeoutStartSec=0

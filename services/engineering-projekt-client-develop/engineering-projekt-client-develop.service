@@ -1,0 +1,14 @@
+[Unit]
+Description=engineering-projekt-client-develop
+After=docker.service
+Before=nginx.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill engineering-projekt-client-develop
+ExecStart=/usr/bin/docker run --rm --name engineering-projekt-client-develop fabianhauser/engineering-projekt-client-develop
+ExecStop=/usr/bin/docker stop engineering-projekt-client-develop
+
+[Install]
+WantedBy=multi-user.target
