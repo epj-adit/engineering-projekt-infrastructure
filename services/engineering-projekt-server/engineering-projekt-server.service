@@ -1,0 +1,15 @@
+[Unit]
+Description=engineering-projekt-server
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill engineering-projekt-server
+ExecStart=/usr/bin/docker run --rm --name engineering-projekt-server fabianhauser/engineering-projekt-server
+ExecStop=/usr/bin/docker stop engineering-projekt-server
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
