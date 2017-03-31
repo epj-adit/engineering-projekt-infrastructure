@@ -1,6 +1,6 @@
-upstream sonar_server {
-    server sonarqube:9000 fail_timeout=0;
-}
+#upstream sonar_server {
+#    server sonarqube:9000 fail_timeout=0;
+#}
 
 server {
     listen 8080;
@@ -32,7 +32,7 @@ server {
     ssl_trusted_certificate /etc/dehydrated/certs/sonar.adit.qo.is/fullchain.pem;
 
     # If DNS-resolution for OCSP is required, ask this host:
-#    resolver 81.92.97.18;
+    resolver 8.8.8.8;
 
     access_log /var/log/nginx/sonar.adit.qo.is.access.log;
     error_log /var/log/nginx/sonar.adit.qo.is.error.log info;
@@ -53,13 +53,13 @@ server {
             return 503;
         }
 
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_redirect off;
-
-        proxy_pass http://sonar_server;
-        break;
+#        proxy_set_header Host $http_host;
+#        proxy_set_header X-Real-IP $remote_addr;
+#        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#        proxy_redirect off;
+#
+#        proxy_pass http://sonar_server;
+#        break;
     }
 
     error_page 503 @maintenance;
