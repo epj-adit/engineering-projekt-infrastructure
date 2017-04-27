@@ -2,11 +2,13 @@
 Description=engineering-projekt-server-develop
 After=docker.service
 Requires=docker.service
+After=engineering-projekt-server-develop-postgres.service
+Requires=engineering-projekt-server-develop-postgres.service
 
 [Service]
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill engineering-projekt-server-develop
-ExecStart=/usr/bin/docker run --rm --name engineering-projekt-server-develop fabianhauser/engineering-projekt-server-develop
+ExecStart=/usr/bin/docker run --link engineering-projekt-server-develop-postgres --env-file /etc/engineering-projekt-server-develop.env --rm --name engineering-projekt-server-develop fabianhauser/engineering-projekt-server-develop
 ExecStop=/usr/bin/docker stop engineering-projekt-server-develop
 Restart=on-failure
 RestartSec=1

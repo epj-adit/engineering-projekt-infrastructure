@@ -1,0 +1,15 @@
+[Unit]
+Description=Postgres
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill engineering-projekt-server-develop-postgres
+ExecStart=/usr/bin/docker run --rm --name engineering-projekt-server-develop-postgres --env-file /etc/engineering-projekt-server-develop.env -v engineering-projekt-server-develop_postgresql:/var/lib/postgresql -v engineering-projekt-server-develop_postgresql_data:/var/lib/postgresql/data postgres:9.6-alpine
+ExecStop=/usr/bin/docker stop engineering-projekt-server-develop-postgres
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

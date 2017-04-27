@@ -2,8 +2,13 @@ upstream adit_client {
     server engineering-projekt-client:8080 fail_timeout=0;
 }
 
+upstream adit_server {
+    server engineering-projekt-server:4567 fail_timeout=0;
+}
+
 server {
     listen 8080;
+    listen [::]:8080;
     server_name www.adit.qo.is adit.qo.is;
 
     location /.well-known/acme-challenge {
@@ -15,6 +20,7 @@ server {
 
 server {
     listen 8443 ssl http2;
+    listen [::]:8443 ssl http2;
     server_name www.adit.qo.is;
     ssl_certificate /etc/dehydrated/certs/adit.qo.is/fullchain.pem;
     ssl_certificate_key /etc/dehydrated/certs/adit.qo.is/privkey.pem;
@@ -28,6 +34,7 @@ server {
 
 server {
     listen 8443 ssl http2;
+    listen [::]:8443 ssl http2;
     server_name adit.qo.is;
 
     ssl_certificate /etc/dehydrated/certs/adit.qo.is/fullchain.pem;
@@ -60,6 +67,22 @@ server {
 
     location /.well-known/acme-challenge {
       alias /var/www/dehydrated;
+    }
+
+    location /api/ {
+        if (-f $document_root/maintenance.html) {
+            return 503;
+        }
+        add_header 'Access-Control-Allow-Origin' '*' always;
+
+
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_redirect off;
+
+        proxy_pass http://adit_server/;
+        break;
     }
 
     location / {
