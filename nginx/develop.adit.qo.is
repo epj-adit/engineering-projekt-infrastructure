@@ -73,7 +73,6 @@ server {
         if (-f $document_root/maintenance.html) {
             return 503;
         }
-        add_header 'Access-Control-Allow-Origin' '*' always;
 
         proxy_set_header Host $http_host;
         proxy_set_header X-Real-IP $remote_addr;
