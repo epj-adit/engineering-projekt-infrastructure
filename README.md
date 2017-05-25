@@ -96,13 +96,16 @@ systemctl enable `pwd`/services/nginx/nginx-dehydrated.timer
 
 # Create certificates with this oneshot-execution:
 /usr/bin/docker exec -ti nginx dehydrated --register --accept-terms
+# Create TLS DHParameters
+/usr/bin/docker exec -ti nginx openssl dhparam -out /etc/dehydrated/dhparam.pem 2048
 systemctl start nginx-dehydrated.service
 ```
 
 
 ## Building the application
 
-This section covers how to build the whole application and correspondant containers locally on your machine
+This section covers how to build the whole application and correspondant containers locally on your machine.
+If the build process was successful, you get production-ready docker containers that can be executed as specified in the systemd files.
 
 ### Prerequisities
 
