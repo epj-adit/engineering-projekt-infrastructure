@@ -1,6 +1,6 @@
-# ADIT Engineering Projekt Infrastructure
+# ADIT Engineering Project Infrastructure
 
-Documentations to allow the setup of the infrastructure.
+Documentation to allow the setup of the infrastructure.
 
 Please note that this documentation only covers the setup of a production instance, although the repository also contains configuration files for `-develop` instances. These can be setup just like the production system (except having `-develop` in names everywhere).
 
@@ -82,7 +82,7 @@ It is not strictly required to run the application (although neccessary and sens
 docker pull fabianhauser/nginx-dehydrated
 systemctl enable `pwd`/services/nginx/nginx.service
 systemctl start nginx.service
-# Note that the start command may fail, if no certificates are available. See section Dehydrated
+# Note that the start command may fail if no certificates are available. See section Dehydrated
 ```
 
 #### Dehydrated
