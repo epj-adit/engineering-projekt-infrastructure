@@ -1,4 +1,4 @@
-# ADIT Engineering Project Infrastructure
+# Engineering Project Infrastructure
 
 Documentation to allow the setup of the infrastructure.
 
